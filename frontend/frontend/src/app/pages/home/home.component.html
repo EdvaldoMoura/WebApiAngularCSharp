@@ -1,0 +1,61 @@
+<div class="container mt-5">
+
+  <button class="btn btn-success w-100" routerLink="/cadastro">Cadastrar novo usuário</button>
+
+  <div>
+    <label class="form-label mt-3">Pesquisar:</label>
+    <input type="text" class="form-control" placeholder="Pesquisar Usuários" (input)="pesquisar($event)">
+  </div>
+
+  <table class="table table-hover table-bordered mt-5">
+
+    <thead class="table-dark">
+      <tr>
+        <th>Id</th>
+        <th>Nome</th>
+        <th>Email</th>
+        <th>Cpf</th>
+        <th>Cargo</th>
+        <th>Salário</th>
+        <th>Situação</th>
+        <th>Senha</th>
+        <th class="text-center">Ações</th>
+      </tr>
+    </thead>
+
+    <tbody>
+
+      @if(usuarios.length > 0){
+
+      @for (usuario of usuarios; track $index) {
+      <tr>
+        <td>{{usuario.id}}</td>
+        <td>{{usuario.nome}}</td>
+        <td>{{usuario.email}}</td>
+        <td>{{usuario.cpf}}</td>
+        <td>{{usuario.cargo}}</td>
+        <td>{{usuario.salario}}</td>
+        <td>{{usuario.situacao == true ? "Ativo" : "Inativo"}}</td>
+        <td>{{usuario.senha}}</td>
+        <td>
+          <button class="btn btn-success mx-1" [routerLink]="['/detalhes', usuario.id]">Detalhes</button>
+          <button class="btn btn-warning mx-1" [routerLink]="['/editar', usuario.id]">Editar</button>
+          <button class="btn btn-danger mx-1" (click)="deletar(usuario.id)">Excluir</button>
+        </td>
+      </tr>
+      }
+
+
+
+      }
+
+      @if(usuarios.length == 0){
+      <tr>
+        <td colspan="7" class="text-center">Nenhum usuário encontrado</td>
+      </tr>
+      }
+
+    </tbody>
+
+  </table>
+</div>
